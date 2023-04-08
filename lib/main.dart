@@ -4,12 +4,11 @@ import 'package:gold_mine/material_provider.dart';
 import 'package:provider/provider.dart';
 
 void main() {
-  MultiProvider(
-    providers: [
-      ChangeNotifierProvider(create: (_) => MaterialProvider()),
-    ],
-    child: MyApp(),
-  );
+ runApp(MultiProvider(
+     providers: [
+       ChangeNotifierProvider(create: (_) => MaterialProvider()),
+     ],
+     child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
