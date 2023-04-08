@@ -7,13 +7,16 @@ class MaterialProvider extends ChangeNotifier{
   List<MaterialPrice> materialPriceList=[];
 
  Future<List<MaterialPrice>?> getMaterialPriceInfo() async{
-    ApiCalls.getMaterialPriceInfo().then((value) {
+   await ApiCalls.getMaterialPriceInfo().then((value) {
+      
       if(value!=null){
         for(var i in value['materialPrice']){
-          materialPriceList.add(i);
+          materialPriceList.add(MaterialPrice.fromJson(i));
         }
-        return materialPriceList;
+
       }
     });
+
+   return materialPriceList;
   }
 }

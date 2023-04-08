@@ -24,16 +24,11 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    ApiCalls.getMaterialPriceInfo();
     super.initState();
   }
   @override
   Widget build(BuildContext context) {
   return Scaffold(
-      appBar: AppBar(
-        title: Text('Gold Mine'),
-      ),
-      // body: GoldPage(),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
