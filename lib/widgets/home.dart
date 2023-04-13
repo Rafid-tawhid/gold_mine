@@ -1,8 +1,8 @@
 import 'package:custom_line_indicator_bottom_navbar/custom_line_indicator_bottom_navbar.dart';
 import 'package:flutter/material.dart';
 
-import 'api_calls.dart';
-import 'home_page.dart';
+import '../api_calls/api_calls.dart';
+import '../pages/home_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
