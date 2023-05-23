@@ -6,6 +6,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:gold_mine/widgets/home.dart';
 import 'package:gold_mine/widgets/my_dialoge.dart';
 import 'package:provider/provider.dart';
 
@@ -69,8 +70,13 @@ class _LauncherPageState extends State<LauncherPage> {
 
                final info=LoginInfoModel.fromJson(value['data']);
                if(info!=null){
+                 print('get bearer token and set info');
                  UserInfo.setUserInfo(info);
                  UserInfo.setToken(info.accessToken);
+                 print('get bearer token and set info 5555');
+
+                 Navigator.pushNamed(context, HomePage.routeName);
+                 print('get bearer token and set info 666');
                }
 
              }catch (e){
@@ -79,7 +85,7 @@ class _LauncherPageState extends State<LauncherPage> {
                print(e);
              }
 
-           
+
            }
            else {
              //credential miss match

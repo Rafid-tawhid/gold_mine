@@ -71,14 +71,14 @@ GoldModel copyWith({  bool? status,
 class MaterialPrice {
   MaterialPrice({
       num? id, 
-      num? sectionsId, 
+      String? sectionsId, 
       String? sectionName, 
-      num? subSectionsId, 
+      String? subSectionsId, 
       String? subSectionName, 
-      num? weightTypesId, 
+      String? weightTypesId, 
       String? weightTypeName, 
-      num? price, 
-      num? quantity, 
+      String? price, 
+      String? quantity, 
       String? quantityType, 
       dynamic lastUpdatedDate, 
       bool? status, 
@@ -114,27 +114,27 @@ class MaterialPrice {
     _createdBy = json['created_by'];
   }
   num? _id;
-  num? _sectionsId;
+  String? _sectionsId;
   String? _sectionName;
-  num? _subSectionsId;
+  String? _subSectionsId;
   String? _subSectionName;
-  num? _weightTypesId;
+  String? _weightTypesId;
   String? _weightTypeName;
-  num? _price;
-  num? _quantity;
+  String? _price;
+  String? _quantity;
   String? _quantityType;
   dynamic _lastUpdatedDate;
   bool? _status;
   String? _createdBy;
 MaterialPrice copyWith({  num? id,
-  num? sectionsId,
+  String? sectionsId,
   String? sectionName,
-  num? subSectionsId,
+  String? subSectionsId,
   String? subSectionName,
-  num? weightTypesId,
+  String? weightTypesId,
   String? weightTypeName,
-  num? price,
-  num? quantity,
+  String? price,
+  String? quantity,
   String? quantityType,
   dynamic lastUpdatedDate,
   bool? status,
@@ -154,14 +154,14 @@ MaterialPrice copyWith({  num? id,
   createdBy: createdBy ?? _createdBy,
 );
   num? get id => _id;
-  num? get sectionsId => _sectionsId;
+  String? get sectionsId => _sectionsId;
   String? get sectionName => _sectionName;
-  num? get subSectionsId => _subSectionsId;
+  String? get subSectionsId => _subSectionsId;
   String? get subSectionName => _subSectionName;
-  num? get weightTypesId => _weightTypesId;
+  String? get weightTypesId => _weightTypesId;
   String? get weightTypeName => _weightTypeName;
-  num? get price => _price;
-  num? get quantity => _quantity;
+  String? get price => _price;
+  String? get quantity => _quantity;
   String? get quantityType => _quantityType;
   dynamic get lastUpdatedDate => _lastUpdatedDate;
   bool? get status => _status;

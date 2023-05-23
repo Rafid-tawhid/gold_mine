@@ -5,6 +5,8 @@ import 'package:gold_mine/widgets/my_dialoge.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 
+import '../helper_functions/set_user_info.dart';
+
 class ApiCalls {
 
   static String baseUrl='https://goldprice.absolutezerobd.com/';
@@ -46,9 +48,14 @@ class ApiCalls {
   }
 
 
-  static Future<Map<String, dynamic>> getMaterialInfo() async {
+  static Future<Map<String, dynamic>> getMaterialInfo(String pageNo) async {
+    //pageNo='3';
+
     Response response = await http.get(
-        Uri.parse('${baseUrl}api/material-price?perPage=3'),
+        Uri.parse('${baseUrl}api/material-price?perPage=$pageNo'),
+      headers: {
+        'Authorization': 'Bearer ${UserInfo.getToket()}',
+      },
     );
     if (response.statusCode == 200) {
       final responseBody = json.decode(response.body);
@@ -56,22 +63,11 @@ class ApiCalls {
         'status': 'success',
         'data': responseBody,
       };
-    } else if (response.statusCode == 401) {
-      return {
-        'status': 'error',
-        'message': 'Invalid credentials',
-      };
-    }
-    else if (response.statusCode == 404) {
-      return {
-        'status': 'error',
-        'message': 'Url not found',
-      };
     }else {
       // Handle other status codes appropriately
       return {
         'status': 'error',
-        'message': 'An error occurred',
+        'message': 'Server problem',
       };
     }
 
