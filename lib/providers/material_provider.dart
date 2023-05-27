@@ -9,6 +9,7 @@ class MaterialProvider extends ChangeNotifier{
 
  Future<List<MaterialPrice>> getMaterialInfo(BuildContext context,String pageNo) async{
    print('Called........');
+   materialPriceList.clear();
    await ApiCalls.getMaterialInfo(pageNo).then((value) {
       if(value['status']=='success'){
         final data=value['data'];
@@ -19,7 +20,6 @@ class MaterialProvider extends ChangeNotifier{
         for(Map i in data['materialPrice']){
           materialPriceList.add(MaterialPrice.fromJson(i));
         }
-
         print('materialPriceList ${materialPriceList.first.sectionName}');
 
       }

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:gold_mine/providers/material_provider.dart';
 import 'package:provider/provider.dart';
 
+import '../getx/dialoge_class.dart';
 import '../models/gold_model.dart';
 // import 'package:provider/provider.dart';
 
@@ -19,11 +22,12 @@ class _GoldPageState extends State<GoldPage> {
 
   late MaterialProvider provider;
   final textCon =TextEditingController();
-  num vori=0;
+  num weight=0;
   num price=0;
   int _selectedIndex = -1;
   List<String> materialList=['Gold','Silver','Bronch','Diamond','Plutinum','Urenioum'];
   String materials='Gold';
+  final DialogeClass myController = Get.put(DialogeClass());
   // List<MaterialPrice> goldList=[
   //   MaterialPrice(
   //       id: 1,
@@ -322,6 +326,7 @@ class _GoldPageState extends State<GoldPage> {
 
   @override
   void dispose() {
+    myController.dispose();
     textCon.dispose();
     super.dispose();
   }
@@ -344,7 +349,7 @@ class _GoldPageState extends State<GoldPage> {
               Text('Welcome to Goldmine',style: TextStyle(fontSize: 20),),
               SizedBox(height: 10,),
               Text('$materials',style: TextStyle(fontSize: 20),),
-              Text('Price of ${vori} vori is ${price}',style: TextStyle(fontSize: 16),)
+              //Text('Price of ${vori} vori is ${price}',style: TextStyle(fontSize: 16),)
             ],
           ),
         ),
@@ -354,11 +359,6 @@ class _GoldPageState extends State<GoldPage> {
             builder: (context,snapshot){
               if(snapshot.hasData){
                 final dataList=snapshot.data;
-                provider.getMaterialInfo(context,'3').then((value){
-                  print('RETURN VALUE IS ${value.first.toJson()}');
-                });
-                //
-                // print('dataList!.first.toString() ${dataList!.first.toString()}');
                 return SingleChildScrollView(
                     child: Column(
                         mainAxisSize: MainAxisSize.min,
@@ -444,53 +444,62 @@ class _GoldPageState extends State<GoldPage> {
                               return InkWell(
                                 onTap: (){
                                   // _showBottomSheet(context);
-                                  showDialog(context: context, builder: (context)=>AlertDialog(
-                                    title: Text(dataList[index].sectionName!),
-                                    content: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.all(14.0),
-                                          child: TextField(
-                                            controller: textCon,
-                                            keyboardType: TextInputType.phone,
+                                  showDialog(context: context, builder: (context){
 
-                                            onChanged: (value){
-                                              setState(() {
-                                                vori=int.parse(textCon.text);
-                                                price=int.parse(dataList[index].price!*vori.toInt());
-                                              //
-                                              });
-                                            },
-                                            decoration: InputDecoration(
-                                              labelText: 'Gold Quantity',
+                                         var changeWeight=num.parse(dataList[index].quantity??'');
+                                         var changePrice=num.parse(dataList[index].price??'');
+                                          return Obx(() {
 
-                                              border: OutlineInputBorder(),
-                                              suffixIcon: Icon( Icons.info,),  ),
-                                          ),
-                                        ),
-                                        Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            Text('Section : ${showItemList[index].sectionName}',style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold,),),
-                                            SizedBox(height: 5,),
-                                            Text('Category : ${showItemList[index].subSectionName}',style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold,),)
-                                          ],
-                                        ),
-                                        SizedBox(height: 5,),
-                                        Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            Text('Quantity : ${showItemList[index].quantity}',style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold,)),
-                                            Text('Price : ${showItemList[index].price}',style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold,)),
-                                          ],
-                                        ),
-                                        SizedBox(height: 20,),
-                                        Text('Price of ${vori} vori is ${price}'),
-                                        SizedBox(height: 20,),
-                                      ],
-                                    ),
-                                  ));
+                                            return AlertDialog(
+                                              title: Text(dataList[index].sectionName!),
+                                              content: Column(
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  Padding(
+                                                    padding: const EdgeInsets.all(14.0),
+                                                    child: TextField(
+                                                      controller: textCon,
+                                                      keyboardType: TextInputType.phone,
+
+                                                      onChanged: (value){
+                                                        if(value.isNotEmpty){
+                                                          myController.getTotalPrice(value,dataList[index].price!);
+                                                          // changeWeight=int.parse(value);
+                                                          // changePrice=changeWeight*double.parse(dataList[index].price!);
+                                                          // print('weight ${changeWeight} Price ${changePrice}');
+                                                        }
+                                                        // print('price ${price}');
+                                                      },
+                                                      decoration: InputDecoration(
+                                                        labelText: 'Quantity (gm)',
+                                                        border: OutlineInputBorder(),
+                                                        suffixIcon: Icon( Icons.info,),  ),
+                                                    ),
+                                                  ),
+                                                  Column(
+                                                    mainAxisSize: MainAxisSize.min,
+                                                    children: [
+                                                      Text('Section : ${dataList[index].sectionName??''}',style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold,),),
+                                                      SizedBox(height: 5,),
+                                                      Text('Category : ${dataList[index].subSectionName}',style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold,),)
+                                                    ],
+                                                  ),
+                                                  SizedBox(height: 5,),
+                                                  // Row(
+                                                  //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                  //   children: [
+                                                  //     Text('Quantity : ${dataList[index].quantity}',style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold,)),
+                                                  //     Text('Price : ${dataList[index].price}',style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold,)),
+                                                  //   ],
+                                                  // ),
+                                                  SizedBox(height: 20,),
+                                                  Text('Price of ${myController.weight} ${dataList[index].weightTypeName} is ${myController.totalPrice} BDT'),
+                                                  SizedBox(height: 20,),
+                                                ],
+                                              ),
+                                            );
+                                          });
+                                  });
                                 },
                                 child: Stack(
                                   children: [
