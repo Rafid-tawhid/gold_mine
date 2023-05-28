@@ -1,33 +1,67 @@
 import 'package:flutter/cupertino.dart';
 import 'package:gold_mine/api_calls/api_calls.dart';
-import 'package:gold_mine/models/gold_model.dart';
+import 'package:gold_mine/models/materials_model.dart';
+import 'package:gold_mine/models/section_model.dart';
 import 'package:gold_mine/widgets/my_dialoge.dart';
 
 class MaterialProvider extends ChangeNotifier{
 
-  List<MaterialPrice> materialPriceList=[];
+  List<MaterialPrice> materialsInfoList=[];
+  List<Sections> sectionsName=[];
 
- Future<List<MaterialPrice>> getMaterialInfo(BuildContext context,String pageNo) async{
+
+  Future<List<Sections>> getSectionsName(BuildContext context)async {
+
+    sectionsName.clear();
+    await ApiCalls.getSection().then((value) {
+
+      if(value!=null){
+        if(value['response']=='success') {
+          final data=value['data'];
+
+          if(data['status']==true){
+
+            for(Map i in data['sections']){
+              sectionsName.add(Sections.fromJson(i));
+            }
+          }
+          else {
+            MyDialogs.serverErrorDialoge(context, 'Server Problem', 'Please wait and try again later.. 1');
+          }
+        }
+        else {
+          MyDialogs.serverErrorDialoge(context, 'Server Problem', 'Please wait and try again later.. 2');
+        }
+      }
+      else {
+        MyDialogs.serverErrorDialoge(context, 'Server Problem', 'Please wait and try again later.. 3');
+      }
+    });
+
+    return sectionsName;
+  }
+
+ Future<List<MaterialPrice>> getMaterialInfo(BuildContext context,String idNo) async{
    print('Called........');
-   materialPriceList.clear();
-   await ApiCalls.getMaterialInfo(pageNo).then((value) {
+   materialsInfoList.clear();
+   await ApiCalls.getMaterialInfo(idNo).then((value) {
       if(value['status']=='success'){
         final data=value['data'];
        print('MY VAL ${data['materialPrice']}');
 
-       // materialPriceList.addAll(data['materialPrice']);
-        final db=data['materialPrice'];
         for(Map i in data['materialPrice']){
-          materialPriceList.add(MaterialPrice.fromJson(i));
+          materialsInfoList.add(MaterialPrice.fromJson(i));
         }
-        print('materialPriceList ${materialPriceList.first.sectionName}');
+        notifyListeners();
+
 
       }
       else {
         MyDialogs.serverErrorDialoge(context, 'Server Problem', 'Please wait and try again later.. ');
+
       }
     });
 
-   return materialPriceList;
+   return materialsInfoList;
   }
 }

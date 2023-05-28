@@ -62,7 +62,7 @@ class _LauncherPageState extends State<LauncherPage> {
       if (result == ConnectivityResult.wifi ||
           result == ConnectivityResult.mobile) {
 
-        ApiCalls.getTokenAndLogin('admin@domain.com','admin123').then((value) {
+        ApiCalls.getTokenAndLogin('admin@domain.com','admin123').then((value) async {
           if(value['status']=='success') {
            if(value['data']['status']==true){
              //get bearer token and set info
@@ -73,10 +73,11 @@ class _LauncherPageState extends State<LauncherPage> {
                  print('get bearer token and set info');
                  UserInfo.setUserInfo(info);
                  UserInfo.setToken(info.accessToken);
-                 print('get bearer token and set info 5555');
+
+                 //get sections name
+                 await provider.getSectionsName(context);
 
                  Navigator.pushNamed(context, HomePage.routeName);
-                 print('get bearer token and set info 666');
                }
 
              }catch (e){
