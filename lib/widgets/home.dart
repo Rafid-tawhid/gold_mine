@@ -33,8 +33,8 @@ class _HomePageState extends State<HomePage> {
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: CustomLineIndicatorBottomNavbar(
-        selectedColor: Color(0xffda9100),
-        unSelectedColor: Colors.orangeAccent,
+        selectedColor: Color(0xff0f4c81),
+        unSelectedColor: Color(0xff2a6aa8),
         backgroundColor: Colors.white,
         currentIndex: _selectedIndex,
         unselectedIconSize: 15,

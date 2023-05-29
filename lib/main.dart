@@ -24,8 +24,7 @@ class MyApp extends StatelessWidget {
       builder: EasyLoading.init(),
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-
-        colorScheme: ColorScheme.fromSeed(seedColor: Color(0xffe5b73b)),
+        colorScheme: ColorScheme.fromSeed(seedColor: Color(0xff0f4c81)),
       ),
       initialRoute: LauncherPage.routeName,
 

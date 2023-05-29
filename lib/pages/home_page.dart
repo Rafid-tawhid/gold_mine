@@ -24,6 +24,7 @@ class _GoldPageState extends State<GoldPage> {
   late MaterialProvider provider;
   final textCon =TextEditingController();
   num weight=0;
+  bool calledOnce=true;
   num price=0;
   int _selectedIndex = -1;
   List<String> materialList=['Gold','Silver','Bronch','Diamond','Plutinum','Urenioum'];
@@ -42,6 +43,11 @@ class _GoldPageState extends State<GoldPage> {
   void didChangeDependencies() {
 
     provider=Provider.of(context,listen: true);
+    if(calledOnce){
+      _selectedIndex=0;
+      provider.getMaterialInfo(context,'1').then((value) {});
+    }
+    calledOnce=false;
     super.didChangeDependencies();
   }
 
@@ -93,10 +99,10 @@ class _GoldPageState extends State<GoldPage> {
                               width: 120,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(4),
-                                color: Colors.white,
+                                color: _selectedIndex == index?Color(0xff0f4c81):Colors.white,
                                 border: Border.all(
                                   color: _selectedIndex == index
-                                      ? Color(0xffda9100) // Color of the selected item
+                                      ? Colors.black // Color of the selected item
                                       : Colors.white,
                                 ),
                               ),
@@ -104,7 +110,7 @@ class _GoldPageState extends State<GoldPage> {
                               child: Text(provider.sectionsName[index].name??'',
                                   style: TextStyle(
                                       fontWeight: _selectedIndex == index?FontWeight.bold:FontWeight.normal,
-                                      color: _selectedIndex == index?Color(0xffda9100):Colors.black,
+                                      color: _selectedIndex == index?Colors.white:Colors.black,
                                       fontSize: _selectedIndex == index?15:14
                                   )
                               ),
@@ -134,9 +140,11 @@ class _GoldPageState extends State<GoldPage> {
                           onTap: (){
                             // _showBottomSheet(context);
                             showDialog(context: context, builder: (context){
+                              //set controler
+                              textCon.text='1';
+                              //default weight 1
+                              myController.getTotalPrice('1',provider.materialsInfoList[index].price!);
 
-                              var changeWeight=num.parse(provider.materialsInfoList[index].quantity??'');
-                              var changePrice=num.parse(provider.materialsInfoList[index].price??'');
                               return Obx(() {
 
                                 return AlertDialog(
@@ -210,7 +218,7 @@ class _GoldPageState extends State<GoldPage> {
                               ),
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Icon(Icons.camera_sharp,color: Colors.red,),
+                                child: Icon(Icons.camera_sharp,color: Color(0xff0f4c81),),
                               )
                             ],
                           ),
