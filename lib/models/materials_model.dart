@@ -1,20 +1,12 @@
-class GoldModel {
-  GoldModel({
+class MaterialsModel {
+  MaterialsModel({
       bool? status, 
-      List<MaterialPrice>? materialPrice, 
-      num? total, 
-      num? perPage, 
-      num? currentPage, 
-      num? lastPage,}){
+      List<MaterialPrice>? materialPrice,}){
     _status = status;
     _materialPrice = materialPrice;
-    _total = total;
-    _perPage = perPage;
-    _currentPage = currentPage;
-    _lastPage = lastPage;
 }
 
-  GoldModel.fromJson(dynamic json) {
+  MaterialsModel.fromJson(dynamic json) {
     _status = json['status'];
     if (json['materialPrice'] != null) {
       _materialPrice = [];
@@ -22,36 +14,16 @@ class GoldModel {
         _materialPrice?.add(MaterialPrice.fromJson(v));
       });
     }
-    _total = json['total'];
-    _perPage = json['perPage'];
-    _currentPage = json['currentPage'];
-    _lastPage = json['lastPage'];
   }
   bool? _status;
   List<MaterialPrice>? _materialPrice;
-  num? _total;
-  num? _perPage;
-  num? _currentPage;
-  num? _lastPage;
-GoldModel copyWith({  bool? status,
+MaterialsModel copyWith({  bool? status,
   List<MaterialPrice>? materialPrice,
-  num? total,
-  num? perPage,
-  num? currentPage,
-  num? lastPage,
-}) => GoldModel(  status: status ?? _status,
+}) => MaterialsModel(  status: status ?? _status,
   materialPrice: materialPrice ?? _materialPrice,
-  total: total ?? _total,
-  perPage: perPage ?? _perPage,
-  currentPage: currentPage ?? _currentPage,
-  lastPage: lastPage ?? _lastPage,
 );
   bool? get status => _status;
   List<MaterialPrice>? get materialPrice => _materialPrice;
-  num? get total => _total;
-  num? get perPage => _perPage;
-  num? get currentPage => _currentPage;
-  num? get lastPage => _lastPage;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -59,10 +31,6 @@ GoldModel copyWith({  bool? status,
     if (_materialPrice != null) {
       map['materialPrice'] = _materialPrice?.map((v) => v.toJson()).toList();
     }
-    map['total'] = _total;
-    map['perPage'] = _perPage;
-    map['currentPage'] = _currentPage;
-    map['lastPage'] = _lastPage;
     return map;
   }
 
@@ -71,14 +39,14 @@ GoldModel copyWith({  bool? status,
 class MaterialPrice {
   MaterialPrice({
       num? id, 
-      num? sectionsId, 
+      String? sectionsId, 
       String? sectionName, 
-      num? subSectionsId, 
+      String? subSectionsId, 
       String? subSectionName, 
-      num? weightTypesId, 
+      String? weightTypesId, 
       String? weightTypeName, 
-      num? price, 
-      num? quantity, 
+      String? price, 
+      String? quantity, 
       String? quantityType, 
       dynamic lastUpdatedDate, 
       bool? status, 
@@ -114,27 +82,27 @@ class MaterialPrice {
     _createdBy = json['created_by'];
   }
   num? _id;
-  num? _sectionsId;
+  String? _sectionsId;
   String? _sectionName;
-  num? _subSectionsId;
+  String? _subSectionsId;
   String? _subSectionName;
-  num? _weightTypesId;
+  String? _weightTypesId;
   String? _weightTypeName;
-  num? _price;
-  num? _quantity;
+  String? _price;
+  String? _quantity;
   String? _quantityType;
   dynamic _lastUpdatedDate;
   bool? _status;
   String? _createdBy;
 MaterialPrice copyWith({  num? id,
-  num? sectionsId,
+  String? sectionsId,
   String? sectionName,
-  num? subSectionsId,
+  String? subSectionsId,
   String? subSectionName,
-  num? weightTypesId,
+  String? weightTypesId,
   String? weightTypeName,
-  num? price,
-  num? quantity,
+  String? price,
+  String? quantity,
   String? quantityType,
   dynamic lastUpdatedDate,
   bool? status,
@@ -154,14 +122,14 @@ MaterialPrice copyWith({  num? id,
   createdBy: createdBy ?? _createdBy,
 );
   num? get id => _id;
-  num? get sectionsId => _sectionsId;
+  String? get sectionsId => _sectionsId;
   String? get sectionName => _sectionName;
-  num? get subSectionsId => _subSectionsId;
+  String? get subSectionsId => _subSectionsId;
   String? get subSectionName => _subSectionName;
-  num? get weightTypesId => _weightTypesId;
+  String? get weightTypesId => _weightTypesId;
   String? get weightTypeName => _weightTypeName;
-  num? get price => _price;
-  num? get quantity => _quantity;
+  String? get price => _price;
+  String? get quantity => _quantity;
   String? get quantityType => _quantityType;
   dynamic get lastUpdatedDate => _lastUpdatedDate;
   bool? get status => _status;

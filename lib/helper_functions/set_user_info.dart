@@ -12,4 +12,5 @@ class UserInfo{
     token=value;
     print('Set token $token');
   }
+  static String getToket()=>token!;
 }
