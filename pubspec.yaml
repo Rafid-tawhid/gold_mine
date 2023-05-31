@@ -41,6 +41,9 @@ dependencies:
   bottom_sheet: ^3.1.2
   connectivity_plus: ^4.0.1
   art_sweetalert: ^0.0.5
+  get: ^4.1.4
+  flutter_easyloading: ^3.0.5
+  dropdown_button2: ^2.3.4
 
 dev_dependencies:
   flutter_test:

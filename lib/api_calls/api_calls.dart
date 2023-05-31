@@ -1,9 +1,11 @@
 import 'dart:convert';
 
-import 'package:gold_mine/models/gold_model.dart';
+import 'package:gold_mine/models/materials_model.dart';
 import 'package:gold_mine/widgets/my_dialoge.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
+
+import '../helper_functions/set_user_info.dart';
 
 class ApiCalls {
 
@@ -45,10 +47,14 @@ class ApiCalls {
 
   }
 
+  static Future<Map<String, dynamic>> getMaterialInfo(String idNo) async {
+    //pageNo='3';
 
-  static Future<Map<String, dynamic>> getMaterialInfo() async {
     Response response = await http.get(
-        Uri.parse('${baseUrl}api/material-price?perPage=3'),
+        Uri.parse('${baseUrl}api/sections-by-material-price/$idNo'),
+      headers: {
+        'Authorization': 'Bearer ${UserInfo.getToket()}',
+      },
     );
     if (response.statusCode == 200) {
       final responseBody = json.decode(response.body);
@@ -56,22 +62,61 @@ class ApiCalls {
         'status': 'success',
         'data': responseBody,
       };
-    } else if (response.statusCode == 401) {
+    }else {
+      // Handle other status codes appropriately
       return {
         'status': 'error',
-        'message': 'Invalid credentials',
+        'message': 'Server problem',
       };
     }
-    else if (response.statusCode == 404) {
+
+  }
+
+  static Future<dynamic> getSection() async{
+    Response response = await http.get(
+      Uri.parse('${baseUrl}api/sections'),
+      headers: {
+        'Authorization': 'Bearer ${UserInfo.getToket()}',
+      },
+    );
+    if (response.statusCode == 200) {
+      final responseBody = json.decode(response.body);
+      print('Raw response ${responseBody.toString()}');
       return {
-        'status': 'error',
-        'message': 'Url not found',
+        'response': 'success',
+        'data': responseBody,
+      };
+    }else {
+      // Handle other status codes appropriately
+      return {
+        'response': 'error',
+        'message': 'Server problem',
+      };
+    }
+  }
+
+  static Future<Map<String, dynamic>> getDollarInfo() async {
+    //pageNo='3';
+
+    Response response = await http.get(
+      Uri.parse('${baseUrl}api/all-country-data'),
+      // headers: {
+      //   'Authorization': 'Bearer ${UserInfo.getToket()}',
+      // },
+    );
+    final responses = json.decode(response.body);
+
+    if (response.statusCode == 200) {
+      final responseBody = json.decode(response.body);
+      return {
+        'status': 'success',
+        'data': responseBody,
       };
     }else {
       // Handle other status codes appropriately
       return {
         'status': 'error',
-        'message': 'An error occurred',
+        'message': 'Server problem',
       };
     }
 
