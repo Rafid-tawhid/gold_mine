@@ -2,11 +2,12 @@ import 'package:custom_line_indicator_bottom_navbar/custom_line_indicator_bottom
 import 'package:flutter/material.dart';
 
 import '../api_calls/api_calls.dart';
-import '../pages/home_page.dart';
+import '../pages/dollar_page.dart';
+import '../pages/gold_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
-  static const String routeName='/';
+  static const String routeName='/home';
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -15,10 +16,10 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0; //default index
 
-  List<Widget> _widgetOptions = [
-    GoldPage(),
-    Text('Silver'),
-    Text('Diamond'),
+  final List<Widget> _widgetOptions = [
+    const GoldPage(),
+    const DollarPage(),
+    const Text('Diamond'),
 
   ];
 
@@ -33,8 +34,8 @@ class _HomePageState extends State<HomePage> {
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: CustomLineIndicatorBottomNavbar(
-        selectedColor: Color(0xffda9100),
-        unSelectedColor: Colors.orangeAccent,
+        selectedColor: Color(0xff0f4c81),
+        unSelectedColor: Color(0xff2a6aa8),
         backgroundColor: Colors.white,
         currentIndex: _selectedIndex,
         unselectedIconSize: 15,
@@ -53,11 +54,11 @@ class _HomePageState extends State<HomePage> {
         customBottomBarItems: [
           CustomBottomBarItems(
             label: 'Gold',
-            icon: Icons.compare_arrows,
+            icon: Icons.diamond_rounded,
           ),
           CustomBottomBarItems(
-            label: 'Silver',
-            icon: Icons.currency_bitcoin,
+            label: 'Doller',
+            icon: Icons.attach_money,
           ),
           CustomBottomBarItems(
               label: 'Diamond', icon: Icons.diamond_outlined),
