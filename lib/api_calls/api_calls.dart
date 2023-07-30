@@ -99,10 +99,10 @@ class ApiCalls {
     //pageNo='3';
 
     Response response = await http.get(
-      Uri.parse('${baseUrl}api/all-country'),
-      headers: {
-        'Authorization': 'Bearer ${UserInfo.getToket()}',
-      },
+      Uri.parse('${baseUrl}api/all-country-data'),
+      // headers: {
+      //   'Authorization': 'Bearer ${UserInfo.getToket()}',
+      // },
     );
     final responses = json.decode(response.body);
 
