@@ -6,18 +6,18 @@ import '../widgets/my_dialoge.dart';
 
 class DollerProvider extends ChangeNotifier {
 
-  List<Countries> dollerInfoList=[];
+  List<Country> dollerInfoList=[];
 
-  Future<List<Countries>> getAllDollerInfo() async{
+  Future<List<Country>> getAllDollerInfo() async{
     print('Called........');
     dollerInfoList.clear();
     await ApiCalls.getDollarInfo().then((value) {
       if(value['status']=='success'){
         final data=value['data'];
-        print('All Countryss ${data['countries']}');
+        // print('All Countryss ${data['countries']}');
 
-        for(Map<String,dynamic> i in data['countries']){
-          dollerInfoList.add(Countries.fromJson(i));
+        for(Map<String,dynamic> i in data['country']){
+          dollerInfoList.add(Country.fromJson(i));
         }
         notifyListeners();
 
