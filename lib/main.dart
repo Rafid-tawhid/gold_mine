@@ -25,9 +25,7 @@ class MyApp extends StatelessWidget {
       title: 'Gold Mine',
       builder: EasyLoading.init(),
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Color(0xff0f4c81)),
-      ),
+
       initialRoute: LauncherPage.routeName,
 
       routes: {

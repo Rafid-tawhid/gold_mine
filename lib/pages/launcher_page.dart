@@ -28,12 +28,36 @@ class LauncherPage extends StatefulWidget {
 
 class _LauncherPageState extends State<LauncherPage> {
 
-  late StreamSubscription<ConnectivityResult> subscription;
+
   late MaterialProvider provider;
+  late Connectivity _connectivity;
+  late Stream<ConnectivityResult> _connectivityStream;
 
   @override
   void initState() {
     super.initState();
+    _connectivity = Connectivity();
+    _connectivityStream = _connectivity.onConnectivityChanged;
+    _checkInitialConnection();
+    _listenForConnectionChanges();
+  }
+
+
+  Future<void> _checkInitialConnection() async {
+    var initialResult = await _connectivity.checkConnectivity();
+    if (initialResult == ConnectivityResult.none) {
+      ShowNoNetworkDialoge();
+    }
+  }
+
+  void _listenForConnectionChanges() {
+    _connectivityStream.listen((ConnectivityResult result) {
+      if (result == ConnectivityResult.none) {
+        ShowNoNetworkDialoge();
+      } else if (result != ConnectivityResult.none) {
+        Navigator.push(context, MaterialPageRoute(builder: (context)=>const HomePage()));
+      }
+    });
   }
 
 
@@ -43,8 +67,8 @@ class _LauncherPageState extends State<LauncherPage> {
     provider=Provider.of(context,listen: false);
     Network.checkConnectivity();
     Future.delayed(
-        Duration(
-          milliseconds: 500,
+        const Duration(
+          milliseconds: 200,
         ), () {
 
       if (Network.status == 'Not Connected') {
@@ -56,57 +80,7 @@ class _LauncherPageState extends State<LauncherPage> {
 
 
 
-    subscription = Connectivity().onConnectivityChanged.listen((result) {
-      print('Listening.................');
 
-      if (result == ConnectivityResult.wifi ||
-          result == ConnectivityResult.mobile) {
-
-        ApiCalls.getTokenAndLogin('admin@domain.com','admin123').then((value) async {
-          if(value['status']=='success') {
-           if(value['data']['status']==true){
-             //get bearer token and set info
-             try{
-
-               final info=LoginInfoModel.fromJson(value['data']);
-               if(info!=null){
-                 print('get bearer token and set info');
-                 UserInfo.setUserInfo(info);
-                 UserInfo.setToken(info.accessToken);
-
-                 //get sections name
-                 await provider.getSectionsName();
-
-                 Navigator.pushNamed(context, HomePage.routeName);
-               }
-
-             }catch (e){
-
-               MyDialogs.errorDialoge(context,'Error',e.toString());
-               print(e);
-             }
-
-
-           }
-           else {
-             //credential miss match
-             MyDialogs.errorDialoge(context,'Error',value['data']['msg']);
-           }
-          }
-          else {
-
-            MyDialogs.serverErrorDialoge(context,'Error','Server Problem. Try again later');
-          }
-        });
-
-
-      } else {
-        setState(() {
-          ShowNoNetworkDialoge();
-
-        });
-      }
-    });
 
 
 
@@ -166,7 +140,7 @@ class _LauncherPageState extends State<LauncherPage> {
   @override
   Widget build(BuildContext context) {
 
-    return Scaffold(
+    return const Scaffold(
       backgroundColor: Color(0xff26A6DE),
       body: Center(
           child: Column(
@@ -203,12 +177,12 @@ class _LauncherPageState extends State<LauncherPage> {
         context: context,
         builder: (context) {
           return CupertinoAlertDialog(
-            title: Text('Network problem.'),
-            content: Column(
+            title: const Text('Network problem.'),
+            content: const Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Icon(Icons.wifi_off,size: 60,),
+                Icon(Icons.wifi_off, size: 60,),
                 Text('Please Check your Internet Connection'),
               ],
             ),
@@ -218,11 +192,10 @@ class _LauncherPageState extends State<LauncherPage> {
                     Navigator.pop(context);
                     SystemNavigator.pop();
                   },
-                  child: Text('Cancel'))
+                  child: const Text('Cancel'))
             ],
           );
         });
-  }
-}
+  }}
 
 
