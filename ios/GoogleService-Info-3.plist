@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>422444249204-peg80vu40g4aufr0688bd3o89128qrq6.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.422444249204-peg80vu40g4aufr0688bd3o89128qrq6</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDkKTj0DM5YNPmICYqbe9-NmE1zxq92UQ0</string>
+	<key>GCM_SENDER_ID</key>
+	<string>422444249204</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.goldMine</string>
+	<key>PROJECT_ID</key>
+	<string>contactappproject-13104</string>
+	<key>STORAGE_BUCKET</key>
+	<string>contactappproject-13104.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:422444249204:ios:860956dc2e0823da32a121</string>
+</dict>
+</plist>
