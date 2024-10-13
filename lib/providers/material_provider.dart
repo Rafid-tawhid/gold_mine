@@ -46,24 +46,28 @@ class MaterialProvider extends ChangeNotifier{
    print('Called........');
    materialsInfoList.clear();
 
+   showLoading(true);
+
    await ApiCalls.getMaterialInfo(idNo).then((value) {
       if(value['status']=='success'){
         final data=value['data'];
-       print('MY VAL ${data['materialPrice']}');
-
+       debugPrint('MY VAL ${data['materialPrice']}');
         for(Map i in data['materialPrice']){
           materialsInfoList.add(MaterialsModel.fromJson(i));
         }
-        notifyListeners();
 
       }
       else {
        // MyDialogs.serverErrorDialoge(context, 'Server Problem', 'Please wait and try again later.. ');
       }
     });
-
+   showLoading(false);
    debugPrint('materialsInfoList ${materialsInfoList.length}');
-
    return materialsInfoList;
+  }
+
+  void showLoading(bool bool) {
+    goldLoading=bool;
+    notifyListeners();
   }
 }

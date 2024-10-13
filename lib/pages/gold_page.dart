@@ -45,7 +45,9 @@ class _GoldPageState extends State<GoldPage> {
     dollarprovider=Provider.of(context,listen: false);
     if(calledOnce){
       _selectedIndex=0;
-      provider.getMaterialInfo('1').then((value) {});
+     Future.microtask((){
+       provider.getMaterialInfo('1').then((value) {});
+     });
 
     }
     calledOnce=false;
@@ -56,6 +58,7 @@ class _GoldPageState extends State<GoldPage> {
   Widget build(BuildContext context) {
 
     return Scaffold(
+      backgroundColor: Colors.white,
         appBar: AppBar(
           toolbarHeight: 100,
           centerTitle: true,
@@ -63,14 +66,15 @@ class _GoldPageState extends State<GoldPage> {
             children: [
               const Text('Welcome to Goldmine',style: TextStyle(fontSize: 20),),
               const SizedBox(height: 10,),
-              Text(materials,style: TextStyle(fontSize: 20),),
+              Text(materials,style: const TextStyle(fontSize: 20),),
               //Text('Price of ${vori} vori is ${price}',style: TextStyle(fontSize: 16),)
             ],
           ),
         ),
 
         body: Consumer<MaterialProvider>(
-          builder: (context,provider,_)=>SingleChildScrollView(
+          builder: (context,provider,_)=>provider.goldLoading?const Center(child: CircularProgressIndicator(),):
+          SingleChildScrollView(
               child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
@@ -199,34 +203,35 @@ class _GoldPageState extends State<GoldPage> {
                               });
                             });
                           },
-                          child: Stack(
-                            children: [
-                              Container(
-                                // Replace with your own item widget
-                                child: Card(
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Stack(
+                              children: [
+                                Card(
                                   elevation: 6,
                                   child: Center(
                                     child: Column(
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
                                         Text('${provider.materialsInfoList[index].subSectionName}',style: TextStyle(fontSize: 22,fontWeight: FontWeight.bold),),
-                                        SizedBox(height: 5,),
+                                        const SizedBox(height: 5,),
                                         Text('1gm =${provider.materialsInfoList[index].price} Tk'),
                                       ],
                                     ),
                                   ),
                                 ),
-                              ),
-                              const Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: Icon(Icons.camera_sharp,color: Color(0xff0f4c81),),
-                              )
-                            ],
+                                const Padding(
+                                  padding: EdgeInsets.all(8.0),
+                                  child: Icon(Icons.camera_sharp,color: Color(0xff0f4c81),),
+                                )
+                              ],
+                            ),
                           ),
                         );
                       },
 
-                    ): const Center(child: Text('No Data Found'),),
+                    ):
+                   const Center(child: Text('No Data Found'),),
                   ]
 
                 // body: FutureBuilder(

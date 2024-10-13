@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 
@@ -12,8 +13,8 @@ class ApiCalls {
       Response response = await http.post(
         Uri.parse('${baseUrl}api/login'),
           body: {
-            "email": "$email",
-            "password": "$password",
+            "email": email,
+            "password": password,
           }
       );
       if (response.statusCode == 200) {
@@ -45,29 +46,51 @@ class ApiCalls {
   }
 
   static Future<Map<String, dynamic>> getMaterialInfo(String idNo) async {
-    //pageNo='3';
-
-    Response response = await http.get(
+    try {
+      final response = await http.get(
         Uri.parse('${baseUrl}api/sections-by-material-price/$idNo'),
-      // headers: {
-      //   'Authorization': 'Bearer ${UserInfo.getToket()}',
-      // },
-    );
-    if (response.statusCode == 200) {
-      final responseBody = json.decode(response.body);
-      return {
-        'status': 'success',
-        'data': responseBody,
-      };
-    }else {
-      // Handle other status codes appropriately
-      return {
-        'status': 'error',
-        'message': 'Server problem',
-      };
-    }
+        // Uncomment and add Authorization if needed
+        // headers: {
+        //   'Authorization': 'Bearer ${UserInfo.getToken()}',
+        // },
+      );
 
+      // Checking for a successful response
+      if (response.statusCode == 200) {
+        final responseBody = json.decode(response.body);
+        return {
+          'status': 'success',
+          'data': responseBody,
+        };
+      } else {
+        // Handling unexpected status codes
+        return {
+          'status': 'error',
+          'message': 'Error: ${response.statusCode}. Please try again later.',
+        };
+      }
+    } catch (e) {
+      // Catch any exceptions such as network issues or JSON parsing errors
+      if (e is SocketException) {
+        return {
+          'status': 'error',
+          'message': 'No Internet connection. Please check your network.',
+        };
+      } else if (e is FormatException) {
+        return {
+          'status': 'error',
+          'message': 'Invalid response format. Unable to parse the data.',
+        };
+      } else {
+        // Generic error message for any other exception
+        return {
+          'status': 'error',
+          'message': 'Something went wrong. Please try again later.',
+        };
+      }
+    }
   }
+
 
   static Future<dynamic> getSection() async{
     Response response = await http.get(

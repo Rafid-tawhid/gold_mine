@@ -19,12 +19,16 @@ class DollarPage extends StatefulWidget {
 class _DollarPageState extends State<DollarPage> {
   late DollerProvider dollarprovider;
 
+
+  @override
+  void initState() {
+    callAllRateInfo();
+    super.initState();
+  }
+
   @override
   void didChangeDependencies() {
     dollarprovider=Provider.of(context,listen: true);
-    if(dollarprovider.dollerInfoList.isEmpty){
-      dollarprovider.getAllDollerInfo();
-    }
     super.didChangeDependencies();
   }
 
@@ -45,11 +49,21 @@ class _DollarPageState extends State<DollarPage> {
             ],
           ),
         ),
-        body: ListView(
+        body:dollarprovider.showLoading?const Center(child: CircularProgressIndicator(),):
+        ListView(
             children: dollarprovider.dollerInfoList.map((e) => CountryInfoCard (countryInfo: e.toJson(),)).toList()
         )
 
     );
+  }
+
+  void callAllRateInfo() {
+    var pro=context.read<DollerProvider>();
+    if(pro.dollerInfoList.isEmpty){
+      Future.microtask((){
+        pro.getAllDollerInfo();
+      });
+    }
   }
 
 }

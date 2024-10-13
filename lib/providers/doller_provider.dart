@@ -7,9 +7,11 @@ import '../widgets/my_dialoge.dart';
 class DollerProvider extends ChangeNotifier {
 
   List<DollaerModel> dollerInfoList=[];
+  bool showLoading=false;
 
   Future<List<DollaerModel>> getAllDollerInfo() async{
     print('Called........');
+    showLoadingBtn(true);
     dollerInfoList.clear();
     await ApiCalls.getDollarInfo().then((value) {
       if(value['status']=='success'){
@@ -19,8 +21,6 @@ class DollerProvider extends ChangeNotifier {
         for(var i in data['country']){
           dollerInfoList.add(DollaerModel.fromJson(i));
         }
-        notifyListeners();
-
       }
       else {
        // MyDialogs.serverErrorDialoge(context, 'Server Problem', 'Please wait and try again later.. ');
@@ -28,6 +28,12 @@ class DollerProvider extends ChangeNotifier {
     });
     print('dollerInfoList ${dollerInfoList.length}');
 
+    showLoadingBtn(false);
     return dollerInfoList;
+  }
+
+  void showLoadingBtn(bool bool) {
+    showLoading=bool;
+    notifyListeners();
   }
 }
