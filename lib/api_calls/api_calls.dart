@@ -47,12 +47,9 @@ class ApiCalls {
 
   static Future<Map<String, dynamic>> getMaterialInfo(String idNo) async {
     try {
-      final response = await http.get(
-        Uri.parse('${baseUrl}api/sections-by-material-price/$idNo'),
-        // Uncomment and add Authorization if needed
-        // headers: {
-        //   'Authorization': 'Bearer ${UserInfo.getToken()}',
-        // },
+      //final response = await http.get(Uri.parse('${baseUrl}api/sections-by-material-price/$idNo'),
+      final response = await http.get(Uri.parse('${baseUrl}api/all-material/'),
+
       );
 
       // Checking for a successful response

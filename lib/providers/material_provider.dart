@@ -51,8 +51,8 @@ class MaterialProvider extends ChangeNotifier{
    await ApiCalls.getMaterialInfo(idNo).then((value) {
       if(value['status']=='success'){
         final data=value['data'];
-       debugPrint('MY VAL ${data['materialPrice']}');
-        for(Map i in data['materialPrice']){
+       debugPrint('MY VAL $data');
+        for(Map i in data){
           materialsInfoList.add(MaterialsModel.fromJson(i));
         }
 
