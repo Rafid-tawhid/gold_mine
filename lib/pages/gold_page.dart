@@ -131,106 +131,109 @@ class _GoldPageState extends State<GoldPage> {
                         style: TextStyle(fontSize: 18),
                       ),
                     ),
-                   provider.materialsInfoList.isNotEmpty? GridView.builder(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2, // Number of columns
-                        crossAxisSpacing: 10.0, // Spacing between columns
-                        mainAxisSpacing: 10.0, // Spacing between rows
-                      ),
-                      itemCount: provider.materialsInfoList.length, // Number of items in the grid
-                      itemBuilder: (BuildContext context, int index) {
-                        return InkWell(
-                          onTap: (){
-                            // _showBottomSheet(context);
-                            showDialog(context: context, builder: (context){
-                              //set controler
-                              textCon.text='1';
-                              //default weight 1
-                              myController.getTotalPrice('1',provider.materialsInfoList[index].price.toString());
+                   provider.materialsInfoList.isNotEmpty? Padding(
+                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                     child: GridView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2, // Number of columns
+                          // Spacing between columns
+                          // Spacing between rows
+                        ),
+                        itemCount: provider.materialsInfoList.length, // Number of items in the grid
+                        itemBuilder: (BuildContext context, int index) {
+                          return InkWell(
+                            onTap: (){
+                              // _showBottomSheet(context);
+                              showDialog(context: context, builder: (context){
+                                //set controler
+                                textCon.text='1';
+                                //default weight 1
+                                myController.getTotalPrice('1',provider.materialsInfoList[index].price.toString());
 
-                              return Obx(() {
+                                return Obx(() {
 
-                                return AlertDialog(
-                                  title: Text(provider.materialsInfoList[index].sectionName!),
-                                  content: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.all(14.0),
-                                        child: TextField(
-                                          controller: textCon,
-                                          keyboardType: TextInputType.phone,
-
-                                          onChanged: (value){
-                                            if(value.isNotEmpty){
-                                              myController.getTotalPrice(value,provider.materialsInfoList[index].price.toString());
-                                              // changeWeight=int.parse(value);
-                                              // changePrice=changeWeight*double.parse(dataList[index].price!);
-                                              // print('weight ${changeWeight} Price ${changePrice}');
-                                            }
-                                            // print('price ${price}');
-                                          },
-                                          decoration: const InputDecoration(
-                                            labelText: 'Quantity (gm)',
-                                            border: OutlineInputBorder(),
-                                            suffixIcon: Icon( Icons.info,),  ),
-                                        ),
-                                      ),
-                                      Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          Text('Section : ${provider.materialsInfoList[index].sectionName??''}',style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold,),),
-                                          SizedBox(height: 5,),
-                                          Text('Category : ${provider.materialsInfoList[index].subSectionName}',style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold,),)
-                                        ],
-                                      ),
-                                      SizedBox(height: 5,),
-                                      // Row(
-                                      //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                      //   children: [
-                                      //     Text('Quantity : ${dataList[index].quantity}',style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold,)),
-                                      //     Text('Price : ${dataList[index].price}',style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold,)),
-                                      //   ],
-                                      // ),
-                                      SizedBox(height: 20,),
-                                      Text('Price of ${myController.weight} ${provider.materialsInfoList[index].weightTypeName} is ${myController.totalPrice} BDT'),
-                                      SizedBox(height: 20,),
-                                    ],
-                                  ),
-                                );
-                              });
-                            });
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Stack(
-                              children: [
-                                Card(
-                                  elevation: 6,
-                                  child: Center(
-                                    child: Column(
+                                  return AlertDialog(
+                                    title: Text(provider.materialsInfoList[index].sectionName!),
+                                    content: Column(
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
-                                        Text('${provider.materialsInfoList[index].subSectionName}',style: TextStyle(fontSize: 22,fontWeight: FontWeight.bold),),
-                                        const SizedBox(height: 5,),
-                                        Text('1gm =${provider.materialsInfoList[index].price} Tk'),
+                                        Padding(
+                                          padding: const EdgeInsets.all(14.0),
+                                          child: TextField(
+                                            controller: textCon,
+                                            keyboardType: TextInputType.phone,
+
+                                            onChanged: (value){
+                                              if(value.isNotEmpty){
+                                                myController.getTotalPrice(value,provider.materialsInfoList[index].price.toString());
+                                                // changeWeight=int.parse(value);
+                                                // changePrice=changeWeight*double.parse(dataList[index].price!);
+                                                // print('weight ${changeWeight} Price ${changePrice}');
+                                              }
+                                              // print('price ${price}');
+                                            },
+                                            decoration: const InputDecoration(
+                                              labelText: 'Quantity (gm)',
+                                              border: OutlineInputBorder(),
+                                              suffixIcon: Icon( Icons.info,),  ),
+                                          ),
+                                        ),
+                                        Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Text('Section : ${provider.materialsInfoList[index].sectionName??''}',style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold,),),
+                                            SizedBox(height: 5,),
+                                            Text('Category : ${provider.materialsInfoList[index].subSectionName}',style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold,),)
+                                          ],
+                                        ),
+                                        SizedBox(height: 5,),
+                                        // Row(
+                                        //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                        //   children: [
+                                        //     Text('Quantity : ${dataList[index].quantity}',style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold,)),
+                                        //     Text('Price : ${dataList[index].price}',style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold,)),
+                                        //   ],
+                                        // ),
+                                        SizedBox(height: 20,),
+                                        Text('Price of ${myController.weight} ${provider.materialsInfoList[index].weightTypeName} is ${myController.totalPrice} BDT'),
+                                        SizedBox(height: 20,),
                                       ],
                                     ),
+                                  );
+                                });
+                              });
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Stack(
+                                children: [
+                                  Card(
+                                    elevation: 6,
+                                    child: Center(
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Text('${provider.materialsInfoList[index].subSectionName}',style: const TextStyle(fontSize: 22,fontWeight: FontWeight.bold),),
+                                          const SizedBox(height: 5,),
+                                          Text('1gm =${provider.materialsInfoList[index].price} Tk'),
+                                        ],
+                                      ),
+                                    ),
                                   ),
-                                ),
-                                const Padding(
-                                  padding: EdgeInsets.all(8.0),
-                                  child: Icon(Icons.camera_sharp,color: Color(0xff0f4c81),),
-                                )
-                              ],
+                                  const Padding(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: Icon(Icons.camera_sharp,color: Color(0xff0f4c81),),
+                                  )
+                                ],
+                              ),
                             ),
-                          ),
-                        );
-                      },
+                          );
+                        },
 
-                    ):
+                      ),
+                   ):
                    const Center(child: Text('No Data Found'),),
                   ]
 
