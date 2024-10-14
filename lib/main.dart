@@ -23,6 +23,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Gold Mine',
+
       builder: EasyLoading.init(),
       debugShowCheckedModeBanner: false,
 

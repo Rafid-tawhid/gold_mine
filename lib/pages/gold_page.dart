@@ -61,6 +61,7 @@ class _GoldPageState extends State<GoldPage> {
       backgroundColor: Colors.white,
         appBar: AppBar(
           toolbarHeight: 100,
+          automaticallyImplyLeading: false,
           centerTitle: true,
           title: Column(
             children: [

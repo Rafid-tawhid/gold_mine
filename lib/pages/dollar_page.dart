@@ -39,6 +39,7 @@ class _DollarPageState extends State<DollarPage> {
       backgroundColor: Colors.white,
         appBar: AppBar(
           toolbarHeight: 100,
+          automaticallyImplyLeading: false,
           centerTitle: true,
           title: const Column(
             children: [
