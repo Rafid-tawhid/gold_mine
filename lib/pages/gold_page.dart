@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
+import 'package:gold_mine/helper_functions/constants.dart';
 import 'package:gold_mine/providers/material_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -63,25 +64,26 @@ class _GoldPageState extends State<GoldPage> {
           toolbarHeight: 100,
           automaticallyImplyLeading: false,
           centerTitle: true,
+          backgroundColor: const Color(0xff996515),
           title: Column(
             children: [
-              const Text('Welcome to Goldmine',style: TextStyle(fontSize: 20),),
+               const Text('Welcome to Goldmine',style: TextStyle(fontSize: 20,color: Colors.white,fontWeight:FontWeight.bold ),),
               const SizedBox(height: 10,),
-              Text(materials,style: const TextStyle(fontSize: 20),),
+              Text(materials,style: const TextStyle(fontSize: 20,color: Colors.white,fontWeight:FontWeight.bold),),
               //Text('Price of ${vori} vori is ${price}',style: TextStyle(fontSize: 16),)
             ],
           ),
         ),
 
         body: Consumer<MaterialProvider>(
-          builder: (context,provider,_)=>provider.goldLoading?const Center(child: CircularProgressIndicator(),):
+          builder: (context,provider,_)=>provider.goldLoading? Center(child: CircularProgressIndicator(color: myColor.primary,),):
           SingleChildScrollView(
               child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     const SizedBox(height: 10,),
                     SizedBox(
-                      height: 60.0,
+                      height: 10.0,
                       child: ListView.builder(
                         physics: ClampingScrollPhysics(),
                         shrinkWrap: true,
@@ -105,7 +107,7 @@ class _GoldPageState extends State<GoldPage> {
                               width: 120,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(4),
-                                color: _selectedIndex == index?Color(0xff0f4c81):Colors.white,
+                                color: _selectedIndex == index?const Color(0xff0f4c81):Colors.white,
                                 border: Border.all(
                                   color: _selectedIndex == index
                                       ? Colors.black // Color of the selected item
@@ -125,11 +127,11 @@ class _GoldPageState extends State<GoldPage> {
                         ),
                       ),
                     ),
-                    const Padding(
+                     Padding(
                       padding: EdgeInsets.all(8.0),
                       child: Text(
                         'Material Information',
-                        style: TextStyle(fontSize: 18),
+                        style: TextStyle(fontSize: 18,color: myColor.primary,fontWeight:FontWeight.bold),
                       ),
                     ),
                    provider.materialsInfoList.isNotEmpty? Padding(
@@ -185,11 +187,11 @@ class _GoldPageState extends State<GoldPage> {
                                           mainAxisSize: MainAxisSize.min,
                                           children: [
                                             Text('Section : ${provider.materialsInfoList[index].sectionName??''}',style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold,),),
-                                            SizedBox(height: 5,),
+                                            const SizedBox(height: 5,),
                                             Text('Category : ${provider.materialsInfoList[index].subSectionName}',style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold,),)
                                           ],
                                         ),
-                                        SizedBox(height: 5,),
+                                        const SizedBox(height: 5,),
                                         // Row(
                                         //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                         //   children: [
@@ -212,20 +214,21 @@ class _GoldPageState extends State<GoldPage> {
                                 children: [
                                   Card(
                                     elevation: 6,
+                                    color: Colors.white,
                                     child: Center(
                                       child: Column(
                                         mainAxisSize: MainAxisSize.min,
                                         children: [
-                                          Text('${provider.materialsInfoList[index].subSectionName}',style: const TextStyle(fontSize: 22,fontWeight: FontWeight.bold),),
+                                          Text('${provider.materialsInfoList[index].subSectionName}',style: const TextStyle(fontSize: 22,fontWeight: FontWeight.bold,),textAlign: TextAlign.center,),
                                           const SizedBox(height: 5,),
                                           Text('1gm =${provider.materialsInfoList[index].price} Tk'),
                                         ],
                                       ),
                                     ),
                                   ),
-                                  const Padding(
+                                   Padding(
                                     padding: EdgeInsets.all(8.0),
-                                    child: Icon(Icons.camera_sharp,color: Color(0xff0f4c81),),
+                                    child: Icon(Icons.camera_sharp,color: myColor.primary,),
                                   )
                                 ],
                               ),

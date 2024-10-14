@@ -6,6 +6,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:gold_mine/helper_functions/constants.dart';
 import 'package:gold_mine/widgets/home.dart';
 import 'package:gold_mine/widgets/my_dialoge.dart';
 import 'package:provider/provider.dart';
@@ -140,9 +141,9 @@ class _LauncherPageState extends State<LauncherPage> {
   @override
   Widget build(BuildContext context) {
 
-    return const Scaffold(
-      backgroundColor: Color(0xff26A6DE),
-      body: Center(
+    return  Scaffold(
+      backgroundColor: myColor.primary,
+      body: const Center(
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -153,7 +154,7 @@ class _LauncherPageState extends State<LauncherPage> {
               //     size: 40, color: Colors.white,
               //   ),
               // ),
-              Text('Loading...',style: TextStyle(color: Colors.white),),
+              Text('Loading...',style: TextStyle(color: Colors.white,fontSize: 20),),
               // SizedBox(height: 20,),
               // SizedBox(
               //   width: 120, // Set the width of the progress indicator

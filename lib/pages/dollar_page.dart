@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:gold_mine/helper_functions/constants.dart';
 import 'package:gold_mine/providers/doller_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -41,16 +42,17 @@ class _DollarPageState extends State<DollarPage> {
           toolbarHeight: 100,
           automaticallyImplyLeading: false,
           centerTitle: true,
+          backgroundColor: myColor.primary,
           title: const Column(
             children: [
-              Text('Welcome to Goldmine',style: TextStyle(fontSize: 20),),
+              Text('Welcome to Goldmine',style: TextStyle(fontSize: 20,color: Colors.white,fontWeight:FontWeight.bold),),
               SizedBox(height: 10,),
-              Text('Doller Rate',style: TextStyle(fontSize: 20),),
+              Text('Doller Rate',style: TextStyle(fontSize: 20,color: Colors.white,fontWeight:FontWeight.bold),),
               //Text('Price of ${vori} vori is ${price}',style: TextStyle(fontSize: 16),)
             ],
           ),
         ),
-        body:dollarprovider.showLoading?const Center(child: CircularProgressIndicator(),):
+        body:dollarprovider.showLoading? Center(child: CircularProgressIndicator(color: myColor.primary,),):
         ListView(
             children: dollarprovider.dollerInfoList.map((e) => CountryInfoCard (countryInfo: e.toJson(),)).toList()
         )
@@ -125,9 +127,11 @@ class CountryInfoCard extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  'Capital: ${countryInfo['capital'] ?? 'N/A'}',
-                  style: const TextStyle(fontSize: 16),
+                Flexible(
+                  child: Text(
+                    'Capital: ${countryInfo['capital'] ?? 'N/A'}',
+                    style: const TextStyle(fontSize: 16),
+                  ),
                 ),
                 Text(
                   'Continent: ${countryInfo['continent']}',

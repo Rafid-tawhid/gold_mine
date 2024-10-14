@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gold_mine/helper_functions/constants.dart';
 
 class AbsoluteZeroProfileScreen extends StatelessWidget {
   @override
@@ -109,8 +110,9 @@ class ServiceCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       margin: EdgeInsets.symmetric(vertical: 8.0),
+      color: Colors.white,
       child: ListTile(
-        leading: Icon(icon, size: 40, color: Colors.blueGrey[700]),
+        leading: Icon(icon, size: 40, color: myColor.primary),
         title: Text(title, style: TextStyle(fontWeight: FontWeight.bold)),
         subtitle: Text(description),
       ),
@@ -127,10 +129,11 @@ class ContactButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton.icon(
+
       onPressed: () {},
       icon: Icon(icon),
-      label: Text(label),
-      style: ElevatedButton.styleFrom(backgroundColor: Colors.blueGrey[800]),
+      label: Text(label,),
+      style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
     );
   }
 }
