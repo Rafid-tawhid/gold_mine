@@ -40,8 +40,8 @@ class _HomePageState extends State<HomePage> {
           child: _widgetOptions.elementAt(_selectedIndex),
         ),
         bottomNavigationBar: CustomLineIndicatorBottomNavbar(
-          selectedColor: const Color(0xff0f4c81),
-          unSelectedColor: const Color(0xff2a6aa8),
+          selectedColor: const Color(0xff996515),
+          unSelectedColor: const Color(0xffFFB300),
           backgroundColor: Colors.white,
           currentIndex: _selectedIndex,
           unselectedIconSize: 15,
