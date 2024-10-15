@@ -127,14 +127,15 @@ class _GoldPageState extends State<GoldPage> {
                         ),
                       ),
                     ),
-                     Padding(
+                    Padding(
                       padding: EdgeInsets.all(8.0),
                       child: Text(
                         'Material Information',
                         style: TextStyle(fontSize: 18,color: myColor.primary,fontWeight:FontWeight.bold),
                       ),
                     ),
-                   provider.materialsInfoList.isNotEmpty? Padding(
+
+                    provider.materialsInfoList.isNotEmpty? Padding(
                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
                      child: GridView.builder(
                         shrinkWrap: true,

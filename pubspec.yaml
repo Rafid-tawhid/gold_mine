@@ -19,7 +19,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: '3.5.3'
+  sdk: '>=3.3.4 <4.0.0'
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -44,13 +44,12 @@ dependencies:
   get: ^4.1.4
   flutter_easyloading: ^3.0.5
   dropdown_button2: ^2.3.4
-  flutter_launcher_icons: ^0.14.1
-
+  flutter_launcher_icons: ^0.13.1
 
 flutter_launcher_icons:
   android: "launcher_icon"
   ios: true
-  image_path: "assets/icon/icon.png"
+  image_path: "assets/logos.png"
   min_sdk_android: 21
 
 dev_dependencies:
