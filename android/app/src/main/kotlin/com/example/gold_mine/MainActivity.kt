@@ -1,4 +1,4 @@
-package com.example.gold_mine
+package com.absolutezero.goldMine
 
 import io.flutter.embedding.android.FlutterActivity
 
